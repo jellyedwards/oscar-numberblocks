@@ -6,153 +6,70 @@
 <title>Numberblocks Math Adventure!</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --nb1: #DE151D; --nb2: #E89223; --nb3: #E6C40C; --nb4: #38B500;
-    --nb5: #23B0DB; --nb6: #5A35C3; --nb7: #BA79DD; --nb8: #FD40A4;
-    --nb9: #A5A9AC; --nb10: #DE151D;
-    --bg: #FFF8E7; --shadow: rgba(0,0,0,0.12);
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    font-family:'Nunito',sans-serif; background:var(--bg);
-    min-height:100vh; overflow-x:hidden; position:relative;
-  }
-  body::before, body::after {
-    content:''; position:fixed; border-radius:50%; z-index:0;
-    opacity:0.07; animation:floaty 20s ease-in-out infinite;
-  }
-  body::before { width:400px;height:400px;background:var(--nb5);top:-100px;left:-100px; }
-  body::after { width:300px;height:300px;background:var(--nb1);bottom:-50px;right:-50px;animation-delay:-10s; }
-  @keyframes floaty { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(30px,20px) scale(1.05)} }
-
-  .app {
-    position:relative;z-index:1;max-width:720px;margin:0 auto;padding:20px;
-    min-height:100vh;display:flex;flex-direction:column;align-items:center;
-  }
-  h1 {
-    font-family:'Fredoka One',cursive;font-size:clamp(1.6rem,5vw,2.6rem);
-    text-align:center;margin:16px 0 6px;letter-spacing:1px;
-  }
-  h1 span { display:inline-block;animation:rb 3s ease-in-out infinite; }
-  .c1{color:var(--nb1);animation-delay:0s} .c2{color:var(--nb2);animation-delay:.08s}
-  .c3{color:var(--nb3);animation-delay:.16s} .c4{color:var(--nb4);animation-delay:.24s}
-  .c5{color:var(--nb5);animation-delay:.32s} .c6{color:var(--nb6);animation-delay:.4s}
-  @keyframes rb { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
-
-  .score-bar { display:flex;gap:20px;justify-content:center;margin:8px 0 16px;font-weight:800;font-size:1.05rem;color:#555; }
-  .score-bar .stars { color:#E6C40C;font-size:1.25rem; }
-
-  .nb-container { display:flex;gap:24px;justify-content:center;align-items:flex-end;margin:16px 0;flex-wrap:wrap;min-height:160px; }
-  .nb-char {
-    display:flex;flex-direction:column;align-items:center;
-    animation:popIn .5s cubic-bezier(.34,1.56,.64,1) both;
-  }
-  .nb-char:nth-child(2){animation-delay:.15s} .nb-char:nth-child(3){animation-delay:.3s}
-  @keyframes popIn { from{transform:scale(0) translateY(30px);opacity:0} to{transform:scale(1) translateY(0);opacity:1} }
-
-  .nb-char img, .nb-char svg {
-    max-height:140px; width:auto; image-rendering:auto;
-    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15));
-  }
-  .nb-label {
-    font-family:'Fredoka One',cursive;font-size:1.4rem;margin-top:4px;color:#2D3436;
-  }
-
-  .op-sym, .eq-sym {
-    font-family:'Fredoka One',cursive;font-size:2.5rem;color:#2D3436;
-    align-self:center;animation:popIn .5s cubic-bezier(.34,1.56,.64,1) both;
-  }
-  .op-sym{animation-delay:.1s} .eq-sym{animation-delay:.25s}
-  .q-mark {
-    font-family:'Fredoka One',cursive;font-size:3rem;color:var(--nb6);
-    align-self:center;animation:pulse 1.2s ease-in-out infinite;
-  }
-  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
-
-  .answers { display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:100%;max-width:400px;margin:20px 0; }
-  .answer-btn {
-    font-family:'Fredoka One',cursive;font-size:1.6rem;padding:18px;
-    border:none;border-radius:18px;cursor:pointer;color:white;
-    box-shadow:0 6px 0 rgba(0,0,0,.18),0 8px 20px var(--shadow);
-    position:relative;overflow:hidden;transition:all .15s ease;
-  }
-  .answer-btn::before {
-    content:'';position:absolute;top:0;left:0;right:0;height:40%;
-    background:rgba(255,255,255,.18);border-radius:18px 18px 50% 50%;
-  }
+  :root{--nb1:#DE151D;--nb2:#E89223;--nb3:#E6C40C;--nb4:#38B500;--nb5:#23B0DB;--nb6:#5A35C3;--nb7:#BA79DD;--nb8:#FD40A4;--nb9:#A5A9AC;--nb10:#DE151D;--bg:#FFF8E7;--shadow:rgba(0,0,0,0.12)}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Nunito',sans-serif;background:var(--bg);min-height:100vh;overflow-x:hidden;position:relative}
+  body::before,body::after{content:'';position:fixed;border-radius:50%;z-index:0;opacity:.07;animation:floaty 20s ease-in-out infinite}
+  body::before{width:400px;height:400px;background:var(--nb5);top:-100px;left:-100px}
+  body::after{width:300px;height:300px;background:var(--nb1);bottom:-50px;right:-50px;animation-delay:-10s}
+  @keyframes floaty{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,20px) scale(1.05)}}
+  .app{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:20px;min-height:100vh;display:flex;flex-direction:column;align-items:center}
+  h1{font-family:'Fredoka One',cursive;font-size:clamp(1.6rem,5vw,2.6rem);text-align:center;margin:16px 0 6px;letter-spacing:1px}
+  h1 span{display:inline-block;animation:rb 3s ease-in-out infinite}
+  .c1{color:var(--nb1);animation-delay:0s}.c2{color:var(--nb2);animation-delay:.08s}.c3{color:var(--nb3);animation-delay:.16s}.c4{color:var(--nb4);animation-delay:.24s}.c5{color:var(--nb5);animation-delay:.32s}.c6{color:var(--nb6);animation-delay:.4s}
+  @keyframes rb{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  .score-bar{display:flex;gap:20px;justify-content:center;margin:8px 0 16px;font-weight:800;font-size:1.05rem;color:#555}
+  .score-bar .stars{color:#E6C40C;font-size:1.25rem}
+  .nb-container{display:flex;gap:24px;justify-content:center;align-items:flex-end;margin:16px 0;flex-wrap:wrap;min-height:160px}
+  .nb-char{display:flex;flex-direction:column;align-items:center;animation:popIn .5s cubic-bezier(.34,1.56,.64,1) both}
+  .nb-char:nth-child(2){animation-delay:.15s}.nb-char:nth-child(3){animation-delay:.3s}
+  @keyframes popIn{from{transform:scale(0) translateY(30px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+  .nb-char img,.nb-char svg{max-height:140px;width:auto;filter:drop-shadow(0 3px 6px rgba(0,0,0,.15))}
+  .nb-label{font-family:'Fredoka One',cursive;font-size:1.4rem;margin-top:4px;color:#2D3436}
+  .op-sym,.eq-sym{font-family:'Fredoka One',cursive;font-size:2.5rem;color:#2D3436;align-self:center;animation:popIn .5s cubic-bezier(.34,1.56,.64,1) both}
+  .op-sym{animation-delay:.1s}.eq-sym{animation-delay:.25s}
+  .q-mark{font-family:'Fredoka One',cursive;font-size:3rem;color:var(--nb6);align-self:center;animation:pulse 1.2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+  .answers{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:100%;max-width:400px;margin:20px 0}
+  .answer-btn{font-family:'Fredoka One',cursive;font-size:1.6rem;padding:18px;border:none;border-radius:18px;cursor:pointer;color:white;box-shadow:0 6px 0 rgba(0,0,0,.18),0 8px 20px var(--shadow);position:relative;overflow:hidden;transition:all .15s ease}
+  .answer-btn::before{content:'';position:absolute;top:0;left:0;right:0;height:40%;background:rgba(255,255,255,.18);border-radius:18px 18px 50% 50%}
   .answer-btn:hover{transform:translateY(-3px);box-shadow:0 9px 0 rgba(0,0,0,.18),0 12px 28px var(--shadow)}
   .answer-btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.18),0 4px 10px var(--shadow)}
   .answer-btn.correct{animation:correctPop .6s ease;background:#38B500!important;color:white!important}
   .answer-btn.wrong{animation:shake .5s ease;opacity:.5}
   @keyframes correctPop{0%{transform:scale(1)}30%{transform:scale(1.15)}100%{transform:scale(1)}}
   @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
-
-  .feedback {
-    font-family:'Fredoka One',cursive;font-size:1.4rem;min-height:46px;
-    display:flex;align-items:center;justify-content:center;text-align:center;
-  }
+  .feedback{font-family:'Fredoka One',cursive;font-size:1.4rem;min-height:46px;display:flex;align-items:center;justify-content:center;text-align:center}
   .feedback.correct-msg{color:var(--nb4);animation:popIn .4s ease}
   .feedback.wrong-msg{color:var(--nb1);animation:shake .5s ease}
-
-  .screen{display:none;flex-direction:column;align-items:center;width:100%}
-  .screen.active{display:flex}
-
-  .start-btn,.restart-btn {
-    font-family:'Fredoka One',cursive;font-size:1.3rem;padding:16px 46px;
-    border:none;border-radius:60px;cursor:pointer;color:white;
-    background:linear-gradient(135deg,var(--nb5),var(--nb6));
-    box-shadow:0 6px 0 rgba(0,0,0,.18),0 10px 30px var(--shadow);
-    transition:all .15s ease;margin:18px 0;
-  }
-  .start-btn:hover,.restart-btn:hover{transform:translateY(-3px) scale(1.03)}
-  .start-btn:active,.restart-btn:active{transform:translateY(3px)}
-
+  .screen{display:none;flex-direction:column;align-items:center;width:100%}.screen.active{display:flex}
+  .start-btn,.restart-btn{font-family:'Fredoka One',cursive;font-size:1.3rem;padding:16px 46px;border:none;border-radius:60px;cursor:pointer;color:white;background:linear-gradient(135deg,var(--nb5),var(--nb6));box-shadow:0 6px 0 rgba(0,0,0,.18),0 10px 30px var(--shadow);transition:all .15s ease;margin:18px 0}
+  .start-btn:hover,.restart-btn:hover{transform:translateY(-3px) scale(1.03)}.start-btn:active,.restart-btn:active{transform:translateY(3px)}
   .diff-sel{display:flex;gap:10px;margin:12px 0;flex-wrap:wrap;justify-content:center}
-  .diff-btn {
-    font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;
-    padding:9px 20px;border:3px solid transparent;border-radius:50px;
-    cursor:pointer;transition:all .15s;background:white;color:#555;
-    box-shadow:0 3px 10px var(--shadow);
-  }
-  .diff-btn.selected{border-color:var(--nb5);color:var(--nb5);background:#EBF5FF}
-  .diff-btn:hover{transform:scale(1.05)}
-
+  .diff-btn{font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;padding:9px 20px;border:3px solid transparent;border-radius:50px;cursor:pointer;transition:all .15s;background:white;color:#555;box-shadow:0 3px 10px var(--shadow)}
+  .diff-btn.selected{border-color:var(--nb5);color:var(--nb5);background:#EBF5FF}.diff-btn:hover{transform:scale(1.05)}
   .subtitle{font-size:1.05rem;color:#888;font-weight:600;text-align:center;margin-bottom:6px}
   .final-score{font-family:'Fredoka One',cursive;font-size:3rem;color:var(--nb5);margin:8px 0}
   .final-stars{font-size:3rem;margin:8px 0}
   .encouragement{font-family:'Fredoka One',cursive;font-size:1.2rem;color:#555;text-align:center;max-width:350px}
-
   .progress-bar{width:100%;max-width:400px;height:14px;background:#E8E0D0;border-radius:10px;overflow:hidden;margin:8px 0}
   .progress-fill{height:100%;background:linear-gradient(90deg,var(--nb4),var(--nb5));border-radius:10px;transition:width .4s ease}
-
   .confetti{position:fixed;z-index:100;animation:cfall 2.5s ease-in forwards;pointer-events:none}
   @keyframes cfall{0%{transform:translateY(-20px) rotate(0);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
-
   .start-chars{display:flex;gap:16px;margin:14px 0 18px;align-items:flex-end}
   .start-chars .nb-char img,.start-chars .nb-char svg{max-height:100px}
-  .loading-msg{font-family:'Fredoka One',cursive;color:#bbb;font-size:.85rem;margin:6px 0}
-
-  @media(max-width:500px){
-    .nb-container{gap:14px}
-    .nb-char img,.nb-char svg{max-height:100px}
-    .op-sym,.eq-sym{font-size:2rem}
-    .answers{gap:10px}
-    .answer-btn{padding:14px;font-size:1.3rem}
-    .start-chars .nb-char img,.start-chars .nb-char svg{max-height:70px}
-  }
+  .loading-msg{font-family:'Fredoka One',cursive;color:#bbb;font-size:.85rem;margin:6px 0;text-align:center;max-width:400px}
+  @media(max-width:500px){.nb-container{gap:14px}.nb-char img,.nb-char svg{max-height:100px}.op-sym,.eq-sym{font-size:2rem}.answers{gap:10px}.answer-btn{padding:14px;font-size:1.3rem}.start-chars .nb-char img,.start-chars .nb-char svg{max-height:70px}}
 </style>
 </head>
 <body>
-<div class="app" id="app">
+<div class="app">
   <!-- START -->
   <div class="screen active" id="startScreen">
-    <h1>
-      <span class="c1">N</span><span class="c2">u</span><span class="c3">m</span><span class="c4">b</span><span class="c5">e</span><span class="c6">r</span>&nbsp;<span class="c1">B</span><span class="c2">l</span><span class="c3">o</span><span class="c4">c</span><span class="c5">k</span><span class="c6">s</span>
-    </h1>
-    <p style="font-family:'Fredoka One';font-size:1.3rem;color:#888;margin:4px 0 8px;">Math Adventure</p>
+    <h1><span class="c1">N</span><span class="c2">u</span><span class="c3">m</span><span class="c4">b</span><span class="c5">e</span><span class="c6">r</span>&nbsp;<span class="c1">B</span><span class="c2">l</span><span class="c3">o</span><span class="c4">c</span><span class="c5">k</span><span class="c6">s</span></h1>
+    <p style="font-family:'Fredoka One';font-size:1.3rem;color:#888;margin:4px 0 8px">Math Adventure</p>
     <div class="start-chars" id="startChars"></div>
     <p class="loading-msg" id="loadingMsg">Loading sprites...</p>
-
     <p class="subtitle">Choose your level:</p>
     <div class="diff-sel">
       <button class="diff-btn selected" data-diff="easy" onclick="setDiff('easy')">Easy (1‑5)</button>
@@ -167,19 +84,14 @@
     </div>
     <button class="start-btn" onclick="startGame()">Let's Go! 🚀</button>
   </div>
-
   <!-- GAME -->
   <div class="screen" id="gameScreen">
-    <div class="score-bar">
-      <div>Question <span id="qNum">1</span> / <span id="qTotal">10</span></div>
-      <div class="stars" id="starsDisp">⭐ 0</div>
-    </div>
+    <div class="score-bar"><div>Question <span id="qNum">1</span> / <span id="qTotal">10</span></div><div class="stars" id="starsDisp">⭐ 0</div></div>
     <div class="progress-bar"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
     <div class="nb-container" id="questionArea"></div>
     <div class="feedback" id="feedback"></div>
     <div class="answers" id="answersArea"></div>
   </div>
-
   <!-- END -->
   <div class="screen" id="endScreen">
     <h1><span class="c4">G</span><span class="c3">r</span><span class="c2">e</span><span class="c1">a</span><span class="c5">t</span><span class="c6">!</span></h1>
@@ -189,59 +101,54 @@
     <button class="restart-btn" onclick="resetGame()">Play Again! 🎉</button>
   </div>
 </div>
-
 <script>
 // ===== OFFICIAL SHOW COLOURS =====
-// 1=Red, 2=Orange, 3=Yellow, 4=Green, 5=Cyan/Blue, 6=Indigo,
-// 7=Rainbow(violet), 8=Magenta/Pink, 9=Grey, 10=Red(white+red border)
-const NB_HEX = {
-  1:'#DE151D', 2:'#E89223', 3:'#E6C40C', 4:'#38B500', 5:'#23B0DB',
-  6:'#5A35C3', 7:'#BA79DD', 8:'#FD40A4', 9:'#A5A9AC', 10:'#DE151D',
-  11:'#DE151D',12:'#E89223',13:'#E6C40C',14:'#38B500',15:'#23B0DB',
-  16:'#5A35C3',17:'#BA79DD',18:'#FD40A4',19:'#8A8B8F',20:'#FFECAC'
-};
-// Light-text numbers need dark text on buttons
-const DARK_TEXT_NUMS = new Set([3,9,13,19,20]);
-function needsDarkText(n) {
-  if (DARK_TEXT_NUMS.has(n)) return true;
-  if (n > 20 && DARK_TEXT_NUMS.has(n % 10 === 0 ? 10 : n % 10)) return true;
-  return false;
-}
-function btnColor(n) {
-  if (n <= 0) return '#999';
-  if (NB_HEX[n]) return NB_HEX[n];
-  const d = n % 10; return NB_HEX[d] || NB_HEX[10] || '#999';
-}
+const NB_HEX={1:'#DE151D',2:'#E89223',3:'#E6C40C',4:'#38B500',5:'#23B0DB',6:'#5A35C3',7:'#BA79DD',8:'#FD40A4',9:'#A5A9AC',10:'#DE151D',11:'#DE151D',12:'#E89223',13:'#E6C40C',14:'#38B500',15:'#23B0DB',16:'#5A35C3',17:'#BA79DD',18:'#FD40A4',19:'#8A8B8F',20:'#FFECAC'};
+const DARK_TEXT=new Set([3,9,13,19,20]);
+function btnColor(n){if(n<=0)return'#999';if(NB_HEX[n])return NB_HEX[n];return NB_HEX[n%10]||'#999'}
 
-// ===== SCRATCH SPRITE LOADING =====
-// DG6SP Generation 6 Sprite Pack by DodecaD12 (project 831088154)
+// ===== SCRATCH SPRITE LOADING (Gen 6 DG6SP by DodecaD12) =====
+// Uses the proper 2-step Scratch API:
+// 1. Get project_token via TurboWarp's CORS proxy (trampoline)
+// 2. Fetch project JSON with token
+// 3. Extract SVG costume asset hashes
+// 4. Load sprites from assets.scratch.mit.edu
 const PROJ_ID = '831088154';
-const NUM_NAMES = {
-  0:'Zero',1:'One',2:'Two',3:'Three',4:'Four',5:'Five',
-  6:'Six',7:'Seven',8:'Eight',9:'Nine',10:'Ten',
-  11:'Eleven',12:'Twelve',13:'Thirteen',14:'Fourteen',15:'Fifteen',
-  16:'Sixteen',17:'Seventeen',18:'Eighteen',19:'Nineteen',20:'Twenty'
-};
+const NUM_NAMES={0:'Zero',1:'One',2:'Two',3:'Three',4:'Four',5:'Five',6:'Six',7:'Seven',8:'Eight',9:'Nine',10:'Ten',11:'Eleven',12:'Twelve',13:'Thirteen',14:'Fourteen',15:'Fifteen',16:'Sixteen',17:'Seventeen',18:'Eighteen',19:'Nineteen',20:'Twenty'};
 
-let spriteURLs = {}; // number -> URL
-let spritesLoaded = false;
+let spriteURLs={}, spritesLoaded=false;
 
-async function loadSprites() {
-  const msg = document.getElementById('loadingMsg');
+async function loadSprites(){
+  const msg=document.getElementById('loadingMsg');
   try {
-    msg.textContent = 'Loading sprites from Scratch...';
-    const r = await fetch(`https://projects.scratch.mit.edu/${PROJ_ID}`);
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    const proj = await r.json();
-    const targets = proj.targets || [];
+    // STEP 1: Get project_token from TurboWarp's CORS proxy
+    // (browsers can't directly call api.scratch.mit.edu due to CORS)
+    msg.textContent='Getting project token...';
+    const metaResp = await fetch(`https://trampoline.turbowarp.org/api/projects/${PROJ_ID}`);
+    if (!metaResp.ok) throw new Error(`Metadata fetch failed: HTTP ${metaResp.status}`);
+    const meta = await metaResp.json();
+    const token = meta.project_token;
+    if (!token) throw new Error('No project_token in metadata');
 
+    // STEP 2: Fetch project JSON with the token
+    msg.textContent='Loading project data...';
+    const projResp = await fetch(`https://projects.scratch.mit.edu/${PROJ_ID}?token=${token}`);
+    if (!projResp.ok) throw new Error(`Project fetch failed: HTTP ${projResp.status}`);
+    const proj = await projResp.json();
+
+    // STEP 3: Scan all targets/sprites for costume assets
+    msg.textContent='Extracting sprites...';
+    const targets = proj.targets || [];
     for (const t of targets) {
       for (const c of (t.costumes || [])) {
         const name = (c.name || '').trim();
         const md5 = c.md5ext || (c.assetId + '.' + (c.dataFormat || 'svg'));
+        // Match costume name to a Numberblock
         for (const [num, nbName] of Object.entries(NUM_NAMES)) {
           const lo = name.toLowerCase(), match = nbName.toLowerCase();
-          if (lo === match || lo.startsWith(match + ' ') || lo.startsWith(match + '_') || lo.startsWith(match + '-')) {
+          // Try exact match, or prefix match with separator
+          if (lo === match || lo.startsWith(match+' ') || lo.startsWith(match+'_') ||
+              lo.startsWith(match+'-') || lo.startsWith(match+'.')) {
             if (!spriteURLs[num]) {
               spriteURLs[num] = `https://assets.scratch.mit.edu/${md5}`;
             }
@@ -253,37 +160,36 @@ async function loadSprites() {
     const ct = Object.keys(spriteURLs).length;
     if (ct > 0) {
       spritesLoaded = true;
-      msg.textContent = `Loaded ${ct} sprites! (Gen 6 – DG6SP by DodecaD12)`;
+      msg.textContent = `✅ Loaded ${ct} sprites! (Gen 6 – DG6SP)`;
       // Preload first few
-      for (const n of [1,2,3,4,5]) { if (spriteURLs[n]) new Image().src = spriteURLs[n]; }
+      for (const n of [1,2,3,4,5]) if(spriteURLs[n]) new Image().src=spriteURLs[n];
     } else {
-      msg.textContent = 'No matching costumes found – using built-in characters';
+      // Log what we found for debugging
+      const allNames = targets.flatMap(t=>(t.costumes||[]).map(c=>c.name)).slice(0,30);
+      console.log('Costume names found:', allNames);
+      msg.textContent = 'No matching costumes found — using built-in characters. Check console for costume names.';
     }
   } catch(e) {
-    console.warn('Sprite load:', e);
-    msg.textContent = 'Could not load Scratch sprites – using built-in characters';
+    console.error('Sprite load error:', e);
+    msg.textContent = `⚠️ ${e.message} — using built-in characters`;
   }
   renderStartChars();
 }
 
-// ===== RENDER A NUMBERBLOCK CHARACTER =====
-function renderChar(n) {
-  if (spritesLoaded && spriteURLs[n]) {
-    return `<div class="nb-char">
-      <img src="${spriteURLs[n]}" alt="Numberblock ${n}" crossorigin="anonymous"
-           onerror="this.parentNode.innerHTML=makeFallback(${n})+'<div class=nb-label>${n}</div>'">
-      <div class="nb-label">${n}</div>
-    </div>`;
+// ===== RENDER CHARACTER =====
+function renderChar(n){
+  if(spritesLoaded && spriteURLs[n]){
+    return `<div class="nb-char"><img src="${spriteURLs[n]}" alt="Numberblock ${n}" onerror="this.parentNode.innerHTML=makeFallback(${n})+'<div class=nb-label>${n}</div>'"><div class="nb-label">${n}</div></div>`;
   }
   return `<div class="nb-char">${makeFallback(n)}<div class="nb-label">${n}</div></div>`;
 }
 
 // ===== FALLBACK SVG CHARACTERS =====
-function makeFallback(n) {
-  const color = NB_HEX[n] || '#999';
-  const RB = ['#DE151D','#E89223','#E6C40C','#38B500','#23B0DB','#5A35C3','#BA79DD'];
-  const GR = ['#8A8B8F','#A5A9AC','#C4C8CB'];
-  const bs=22, gap=2;
+function makeFallback(n){
+  const color=NB_HEX[n]||'#999';
+  const RB=['#DE151D','#E89223','#E6C40C','#38B500','#23B0DB','#5A35C3','#BA79DD'];
+  const GR=['#8A8B8F','#A5A9AC','#C4C8CB'];
+  const bs=22,gap=2;
   let rows;
   if(n===1)rows=[[color]];
   else if(n===2)rows=[[color],[color]];
@@ -296,47 +202,21 @@ function makeFallback(n) {
   else if(n===9)rows=[[GR[2],GR[2],GR[2]],[GR[1],GR[1],GR[1]],[GR[0],GR[0],GR[0]]];
   else if(n===10)rows=[[color,color],[color,color],[color,color],[color,color],[color,color]];
   else{const mc=n<=3?1:n<=8?2:3;rows=[];let r=n;while(r>0){const c=Math.min(r,mc);const row=[];for(let i=0;i<c;i++)row.push(color);rows.unshift(row);r-=c;}}
-
-  const maxC=Math.max(...rows.map(r=>r.length));
-  const bodyW=maxC*(bs+gap)-gap, bodyH=rows.length*(bs+gap)-gap;
-  const fS=Math.min(52,bs*Math.min(maxC,2));
-  const svgW=Math.max(bodyW,fS)+10, svgH=fS+4+bodyH+10;
-  const cx=svgW/2, fy=5+fS/2, bt=5+fS+4;
-  const fc=n===7?RB[3]:n===9?GR[1]:n===10?'#EEE':color;
-  const r=fS/2;
-
+  const maxC=Math.max(...rows.map(r=>r.length)),bodyW=maxC*(bs+gap)-gap,bodyH=rows.length*(bs+gap)-gap;
+  const fS=Math.min(52,bs*Math.min(maxC,2)),svgW=Math.max(bodyW,fS)+10,svgH=fS+4+bodyH+10;
+  const cx=svgW/2,fy=5+fS/2,bt=5+fS+4,fc=n===7?RB[3]:n===9?GR[1]:n===10?'#EEE':color,r=fS/2;
   let s=`<svg xmlns="http://www.w3.org/2000/svg" width="${svgW}" height="${svgH}" viewBox="0 0 ${svgW} ${svgH}">`;
   if(n===10)s+=`<rect x="${cx-r}" y="${fy-r}" width="${fS}" height="${fS}" rx="10" fill="#EEE" stroke="#DE151D" stroke-width="2.5"/>`;
   else s+=`<rect x="${cx-r}" y="${fy-r}" width="${fS}" height="${fS}" rx="10" fill="${fc}"/>`;
-  const ey=fy-r*.1, ex=r*.28;
-  if(n===1||n===11){
-    s+=`<ellipse cx="${cx}" cy="${ey}" rx="${r*.28}" ry="${r*.34}" fill="white"/>`;
-    s+=`<circle cx="${cx}" cy="${ey+r*.06}" r="${r*.16}" fill="#2D3436"/>`;
-    s+=`<circle cx="${cx+r*.06}" cy="${ey-r*.04}" r="${r*.06}" fill="white"/>`;
-  } else {
-    s+=`<ellipse cx="${cx-ex}" cy="${ey}" rx="${r*.2}" ry="${r*.26}" fill="white"/>`;
-    s+=`<ellipse cx="${cx+ex}" cy="${ey}" rx="${r*.2}" ry="${r*.26}" fill="white"/>`;
-    s+=`<circle cx="${cx-ex}" cy="${ey+r*.04}" r="${r*.12}" fill="#2D3436"/>`;
-    s+=`<circle cx="${cx+ex}" cy="${ey+r*.04}" r="${r*.12}" fill="#2D3436"/>`;
-    s+=`<circle cx="${cx-ex+r*.05}" cy="${ey-r*.04}" r="${r*.045}" fill="white"/>`;
-    s+=`<circle cx="${cx+ex+r*.05}" cy="${ey-r*.04}" r="${r*.045}" fill="white"/>`;
-  }
+  const ey=fy-r*.1,ex=r*.28;
+  if(n===1||n===11){s+=`<ellipse cx="${cx}" cy="${ey}" rx="${r*.28}" ry="${r*.34}" fill="white"/><circle cx="${cx}" cy="${ey+r*.06}" r="${r*.16}" fill="#2D3436"/><circle cx="${cx+r*.06}" cy="${ey-r*.04}" r="${r*.06}" fill="white"/>`}
+  else{s+=`<ellipse cx="${cx-ex}" cy="${ey}" rx="${r*.2}" ry="${r*.26}" fill="white"/><ellipse cx="${cx+ex}" cy="${ey}" rx="${r*.2}" ry="${r*.26}" fill="white"/><circle cx="${cx-ex}" cy="${ey+r*.04}" r="${r*.12}" fill="#2D3436"/><circle cx="${cx+ex}" cy="${ey+r*.04}" r="${r*.12}" fill="#2D3436"/><circle cx="${cx-ex+r*.05}" cy="${ey-r*.04}" r="${r*.045}" fill="white"/><circle cx="${cx+ex+r*.05}" cy="${ey-r*.04}" r="${r*.045}" fill="white"/>`}
   s+=`<path d="M ${cx-r*.18} ${fy+r*.38} Q ${cx} ${fy+r*.6} ${cx+r*.18} ${fy+r*.38}" fill="none" stroke="#2D3436" stroke-width="2.2" stroke-linecap="round"/>`;
-  for(let ri=0;ri<rows.length;ri++){
-    const cols=rows[ri],rw=cols.length*(bs+gap)-gap,rx=(svgW-rw)/2;
-    for(let ci=0;ci<cols.length;ci++){
-      const x=rx+ci*(bs+gap),y=bt+ri*(bs+gap);
-      if(n===10)s+=`<rect x="${x}" y="${y}" width="${bs}" height="${bs}" rx="4" fill="#EEE" stroke="#DE151D" stroke-width="2"/>`;
-      else{s+=`<rect x="${x}" y="${y}" width="${bs}" height="${bs}" rx="4" fill="${cols[ci]}"/>`;s+=`<rect x="${x+3}" y="${y+2}" width="7" height="3" rx="2" fill="rgba(255,255,255,.35)"/>`;}
-    }
-  }
-  s+='</svg>';
-  return s;
+  for(let ri=0;ri<rows.length;ri++){const cols=rows[ri],rw=cols.length*(bs+gap)-gap,rx=(svgW-rw)/2;for(let ci=0;ci<cols.length;ci++){const x=rx+ci*(bs+gap),y=bt+ri*(bs+gap);if(n===10)s+=`<rect x="${x}" y="${y}" width="${bs}" height="${bs}" rx="4" fill="#EEE" stroke="#DE151D" stroke-width="2"/>`;else{s+=`<rect x="${x}" y="${y}" width="${bs}" height="${bs}" rx="4" fill="${cols[ci]}"/>`;s+=`<rect x="${x+3}" y="${y+2}" width="7" height="3" rx="2" fill="rgba(255,255,255,.35)"/>`}}}
+  return s+'</svg>';
 }
 
-function renderStartChars(){
-  document.getElementById('startChars').innerHTML=renderChar(1)+renderChar(3)+renderChar(5);
-}
+function renderStartChars(){document.getElementById('startChars').innerHTML=renderChar(1)+renderChar(3)+renderChar(5)}
 
 // ===== GAME LOGIC =====
 let diff='easy',op='+',score=0,curQ=0,totalQ=10,questions=[],answered=false;
@@ -344,97 +224,29 @@ function setDiff(d){diff=d;document.querySelectorAll('[data-diff]').forEach(b=>b
 function setOp(o){op=o;document.querySelectorAll('[data-op]').forEach(b=>b.classList.toggle('selected',b.dataset.op===o))}
 function getMax(){return diff==='easy'?5:diff==='medium'?10:20}
 function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a}
-
-function genQuestions(){
-  questions=[];const mx=getMax();
-  for(let i=0;i<totalQ;i++){
-    let o=op==='mix'?(Math.random()<.5?'+':'-'):op;
-    let a,b;
-    if(o==='+'){a=rand(1,mx);b=rand(1,mx);}else{a=rand(2,mx);b=rand(1,a-1);}
-    questions.push({a,b,op:o,answer:o==='+'?a+b:a-b});
-  }
-}
-
+function genQuestions(){questions=[];const mx=getMax();for(let i=0;i<totalQ;i++){let o=op==='mix'?(Math.random()<.5?'+':'-'):op;let a,b;if(o==='+'){a=rand(1,mx);b=rand(1,mx)}else{a=rand(2,mx);b=rand(1,a-1)}questions.push({a,b,op:o,answer:o==='+'?a+b:a-b})}}
 function showQ(){
   answered=false;const q=questions[curQ];
   document.getElementById('qNum').textContent=curQ+1;
-  document.getElementById('feedback').textContent='';
-  document.getElementById('feedback').className='feedback';
-  document.getElementById('questionArea').innerHTML=`
-    ${renderChar(q.a)}
-    <div class="op-sym">${q.op==='+'?'+':'−'}</div>
-    ${renderChar(q.b)}
-    <div class="eq-sym">=</div>
-    <div class="q-mark">?</div>`;
-
-  const answers=genAnswers(q.answer);
-  const aArea=document.getElementById('answersArea');aArea.innerHTML='';
-  answers.forEach(ans=>{
-    const btn=document.createElement('button');
-    btn.className='answer-btn';btn.textContent=ans;
-    btn.style.background=btnColor(ans);
-    if(needsDarkText(ans))btn.style.color='#333';
-    btn.onclick=()=>checkAns(ans,q.answer,btn);
-    aArea.appendChild(btn);
-  });
+  document.getElementById('feedback').textContent='';document.getElementById('feedback').className='feedback';
+  document.getElementById('questionArea').innerHTML=`${renderChar(q.a)}<div class="op-sym">${q.op==='+'?'+':'−'}</div>${renderChar(q.b)}<div class="eq-sym">=</div><div class="q-mark">?</div>`;
+  const answers=genAnswers(q.answer),aArea=document.getElementById('answersArea');aArea.innerHTML='';
+  answers.forEach(ans=>{const btn=document.createElement('button');btn.className='answer-btn';btn.textContent=ans;btn.style.background=btnColor(ans);if(DARK_TEXT.has(ans)||DARK_TEXT.has(ans%10))btn.style.color='#333';btn.onclick=()=>checkAns(ans,q.answer,btn);aArea.appendChild(btn)});
   document.getElementById('progFill').style.width=`${(curQ/totalQ)*100}%`;
 }
-
-function genAnswers(correct){
-  const s=new Set([correct]);
-  while(s.size<4){let w=correct+rand(-4,4);if(w<0)w=rand(0,getMax()*2);if(w!==correct)s.add(w);}
-  return shuffle([...s]);
-}
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=rand(0,i);[a[i],a[j]]=[a[j],a[i]];}return a;}
-
+function genAnswers(correct){const s=new Set([correct]);while(s.size<4){let w=correct+rand(-4,4);if(w<0)w=rand(0,getMax()*2);if(w!==correct)s.add(w)}return shuffle([...s])}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=rand(0,i);[a[i],a[j]]=[a[j],a[i]]}return a}
 function checkAns(sel,correct,btn){
-  if(answered)return;answered=true;
-  const fb=document.getElementById('feedback');
-  if(sel===correct){
-    score++;btn.classList.add('correct');
-    fb.textContent=['Amazing! 🎉','Super! ⭐','Awesome! 🌟','Brilliant! 💫','Yes! 🎊'][rand(0,4)];
-    fb.className='feedback correct-msg';
-    document.getElementById('starsDisp').textContent=`⭐ ${score}`;
-    const qm=document.querySelector('.q-mark');
-    if(qm){const w=document.createElement('div');w.innerHTML=renderChar(questions[curQ].answer);qm.replaceWith(w.firstElementChild);}
-  } else {
-    btn.classList.add('wrong');
-    fb.textContent=`Not quite! It's ${correct} 💪`;
-    fb.className='feedback wrong-msg';
-    document.querySelectorAll('.answer-btn').forEach(b=>{if(parseInt(b.textContent)===correct)b.classList.add('correct');});
-  }
-  setTimeout(()=>{curQ++;curQ<totalQ?showQ():endGame();},1500);
+  if(answered)return;answered=true;const fb=document.getElementById('feedback');
+  if(sel===correct){score++;btn.classList.add('correct');fb.textContent=['Amazing! 🎉','Super! ⭐','Awesome! 🌟','Brilliant! 💫','Yes! 🎊'][rand(0,4)];fb.className='feedback correct-msg';document.getElementById('starsDisp').textContent=`⭐ ${score}`;const qm=document.querySelector('.q-mark');if(qm){const w=document.createElement('div');w.innerHTML=renderChar(questions[curQ].answer);qm.replaceWith(w.firstElementChild)}}
+  else{btn.classList.add('wrong');fb.textContent=`Not quite! It's ${correct} 💪`;fb.className='feedback wrong-msg';document.querySelectorAll('.answer-btn').forEach(b=>{if(parseInt(b.textContent)===correct)b.classList.add('correct')})}
+  setTimeout(()=>{curQ++;curQ<totalQ?showQ():endGame()},1500);
 }
-
-function startGame(){score=0;curQ=0;genQuestions();document.getElementById('starsDisp').textContent='⭐ 0';switchScreen('gameScreen');showQ();}
-function endGame(){
-  switchScreen('endScreen');
-  const p=score/totalQ;
-  document.getElementById('finalStars').textContent=p>=.9?'⭐⭐⭐':p>=.7?'⭐⭐':p>=.4?'⭐':'💪';
-  document.getElementById('finalScore').textContent=`${score} / ${totalQ}`;
-  const m=p>=.9?["You're a Numberblocks superstar!","Incredible work, math genius!"]
-    :p>=.7?["Great job, keep going!","Almost perfect!"]
-    :p>=.4?["Good effort! Practice makes perfect!","Nice try!"]
-    :["Keep practicing, you'll get there!","Every try makes you stronger!"];
-  document.getElementById('encouragement').textContent=m[rand(0,m.length-1)];
-  document.getElementById('progFill').style.width='100%';
-  if(p>=.7)spawnConfetti();
-}
+function startGame(){score=0;curQ=0;genQuestions();document.getElementById('starsDisp').textContent='⭐ 0';switchScreen('gameScreen');showQ()}
+function endGame(){switchScreen('endScreen');const p=score/totalQ;document.getElementById('finalStars').textContent=p>=.9?'⭐⭐⭐':p>=.7?'⭐⭐':p>=.4?'⭐':'💪';document.getElementById('finalScore').textContent=`${score} / ${totalQ}`;const m=p>=.9?["You're a Numberblocks superstar!","Incredible work, math genius!"]:p>=.7?["Great job, keep going!","Almost perfect!"]:p>=.4?["Good effort! Practice makes perfect!","Nice try!"]:["Keep practicing, you'll get there!","Every try makes you stronger!"];document.getElementById('encouragement').textContent=m[rand(0,m.length-1)];document.getElementById('progFill').style.width='100%';if(p>=.7)spawnConfetti()}
 function resetGame(){switchScreen('startScreen')}
-function switchScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
-
-function spawnConfetti(){
-  const cols=['#DE151D','#E89223','#E6C40C','#38B500','#23B0DB','#5A35C3','#FD40A4'];
-  for(let i=0;i<50;i++){
-    const el=document.createElement('div');el.className='confetti';
-    el.style.left=rand(0,100)+'vw';el.style.background=cols[rand(0,cols.length-1)];
-    el.style.borderRadius=Math.random()>.5?'50%':'2px';
-    el.style.width=rand(6,12)+'px';el.style.height=rand(6,12)+'px';
-    el.style.animationDelay=Math.random()*1.5+'s';
-    el.style.animationDuration=1.5+Math.random()*2+'s';
-    document.body.appendChild(el);setTimeout(()=>el.remove(),4000);
-  }
-}
+function switchScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function spawnConfetti(){const cols=['#DE151D','#E89223','#E6C40C','#38B500','#23B0DB','#5A35C3','#FD40A4'];for(let i=0;i<50;i++){const el=document.createElement('div');el.className='confetti';el.style.left=rand(0,100)+'vw';el.style.background=cols[rand(0,cols.length-1)];el.style.borderRadius=Math.random()>.5?'50%':'2px';el.style.width=rand(6,12)+'px';el.style.height=rand(6,12)+'px';el.style.animationDelay=Math.random()*1.5+'s';el.style.animationDuration=1.5+Math.random()*2+'s';document.body.appendChild(el);setTimeout(()=>el.remove(),4000)}}
 
 // ===== INIT =====
 loadSprites();
